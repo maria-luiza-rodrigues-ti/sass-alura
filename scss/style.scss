@@ -4,84 +4,65 @@ $dark-grey: #464646;
 $yellow: #fabe50;
 $img-width: 45%;
 
-.header {
-  font-family: Arial, Helvetica, sans-serif;
+%no-decoration {
+  text-decoration: none;
+}
 
-  &__logo {
-    text-align: center;
-  }
+%un-decoration {
+  text-decoration: underline;
+}
 
-  &__img {
-    max-width: 350px;
-  }
+@mixin reset-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
 
-  .menu {
-    &__list {
-      display: flex;
-      justify-content: center;
-      border-top: 1px solid $light-grey;
-      border-bottom: 1px solid $light-grey;
-      margin-left: auto;
-      margin-right: auto;
-      width: 80%;
-      padding: 20px 0;
-    }
+@mixin flx($property, $jty-cnt) {
+  display: flex;
+  #{$property}: $jty-cnt;
+}
 
-    &__links {
-      position: relative;
-
-      &:not(:last-child)::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: -3px;
-        margin: auto;
-        height: 15px;
-        width: 1px;
-        background-color: $light-grey;
-      }
-    }
-
-    &__link {
-      padding: 0 25px;
-      color: $dark-grey;
-
-      &:hover {
-        color: $purple;
-      }
-    }
+@mixin for-phone-only {
+  @media (max-width: 767.98px) {
+    @content;
   }
 }
 
-.footer {
-  text-align: center;
-  padding: 20px 0;
-  font-family: Arial, Helvetica, sans-serif;
-  position: relative;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-
-  &__logo {
-    max-width: 100px;
-  }
-
-  &__txt {
-    margin: auto;
-    font-size: 14px;
+@mixin for-tablet-only {
+  @media (min-width: 767.98px) and (max-width: 1199767.98px) {
+    @content;
   }
 }
+
+@mixin for-desktop-only {
+  @media (min-width: 1200px) {
+    @content;
+  }
+}
+
+@function calculateRem($size) {
+  @return $size / 16px * 1rem;
+}
+
+@mixin fontSize($size) {
+  font-size: calculateRem($size);
+}
+
+@import "header", "footer", "about", "article";
 
 .main {
-  display: flex;
-  justify-content: center;
+  @include flx(justify-content, center);
   flex-wrap: wrap;
   font-family: Arial, Helvetica, sans-serif;
 
   &__content {
     width: 70%;
     padding: 40px 8px;
+
+    @include for-phone-only {
+      width: 100%;
+    }
   }
 
   &__post {
@@ -93,7 +74,7 @@ $img-width: 45%;
 
   &__title {
     text-decoration: none;
-    font-size: 22px;
+    @include fontSize(22px);
     color: $dark-grey;
     letter-spacing: 1.5;
 
@@ -112,12 +93,12 @@ $img-width: 45%;
 
   &__date {
     margin: 0 10px;
-    font-size: 12px;
+    @include fontSize(12px);
     font-style: italic;
   }
 
   &__tag {
-    font-size: 14px;
+    @include fontSize(12px);
     padding: 5px 7px;
     color: $purple;
     border: 1px solid $purple;
@@ -137,12 +118,12 @@ $img-width: 45%;
     max-width: 650px;
     margin-left: auto;
     margin-right: auto;
-    font-size: 14px;
+    @include fontSize(14px);
   }
 
   &__btn {
     text-decoration: none;
-    font-size: 16px;
+    @include fontSize(16px);
     letter-spacing: 1.5;
     color: $purple;
     background-color: $yellow;
@@ -169,7 +150,7 @@ $img-width: 45%;
   }
 
   &__p {
-    font-size: 14px;
+    @include fontSize(14px);
     color: $dark-grey;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -181,7 +162,7 @@ $img-width: 45%;
 
   &__a {
     text-decoration: none;
-    font-size: 14px;
+    @include fontSize(14px);
     color: $dark-grey;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -190,83 +171,63 @@ $img-width: 45%;
       color: $purple;
     }
   }
-}
 
-.about {
-    width: 80%;
-    margin: 0 auto 40px;
-    font-family: Arial, Helvetica, sans-serif;
+  &__sidebar {
+    width: 25%;
+    padding: 40px 10px;
+  }
+
+  .sidebar {
+    &__top {
+      border: 1px solid $light-grey;
+      padding: 15px 20px;
+    }
 
     &__title {
-        background-color: $light-grey;
-        text-align: center;
-        padding: 20px;
+      background-color: $yellow;
+      text-align: center;
+      padding: 10px 20px;
+      margin: 0;
+      letter-spacing: 1.5px;
     }
 
-    &__h1 {
-        font-size: 22px;
-        color: $dark-grey;
-        letter-spacing: 1px;
-        margin-top: 5px;
-        margin-bottom: 10px;
-        margin-left: 0;
-        margin-right: 0;
+    &__posts {
+      @include reset-list;
     }
 
-    .breadcrumb {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        &__link {
-            font-size: 12px;
-            text-decoration: none;
-            color: &$dark-grey;
-
-            &:hover {
-                text-decoration: underline;
-                color: $purple;
-            }
-        }
-
-        &__img {
-            width: 12px;
-            margin: 8px;
-        }
+    &__list {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      align-items: center;
+      padding: 15px 0;
+      &:not(:last-child) {
+        border-bottom: 1px dashed $light-grey;
+      }
     }
 
     &__img {
-        width: 100%;
-        margin-bottom: 20px;
+      width: 40%;
     }
 
-    &__intro {
-        font-weight: 100;
-        color: $dark-grey;
-        width: 70%;
-        margin: 30px auto;
-        text-align: center;
-        font-size: 16px;
+    &__details {
+      width: 50%;
+      padding-left: 10px;
     }
 
-    &__split {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        align-items: center;
+    &__post-title {
+      @include fontSize(14px);
+      color: $purple;
+      @extend %no-decoration;
+
+      &:hover {
+        @extend %un-decoration;
+      }
     }
 
-    &__img2 {
-        width: $img-width;
+    &__post-date {
+      @include fontSize(12px);
+      margin: 5px 0 0 0;
     }
-
-    &__txt {
-        width: calc(100% - #{$img-width});
-    }
-
-    &__p {
-        font-size: 14px;
-        padding: 10px 20px;
-        color: $dark-grey;
-    }
+  }
 }
