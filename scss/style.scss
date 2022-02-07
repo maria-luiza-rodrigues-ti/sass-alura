@@ -7,8 +7,7 @@ $img-width: 45%;
 %no-decoration {
   text-decoration: none;
 }
-
-%un-decoration {
+%u-decoration {
   text-decoration: underline;
 }
 
@@ -18,27 +17,21 @@ $img-width: 45%;
   list-style: none;
 }
 
-@mixin flx($property, $jty-cnt) {
+@mixin flx ($property, $jty-cnt) {
   display: flex;
   #{$property}: $jty-cnt;
 }
 
 @mixin for-phone-only {
-  @media (max-width: 767.98px) {
-    @content;
-  }
+  @media (max-width: 767.98px) { @content; }
 }
 
 @mixin for-tablet-only {
-  @media (min-width: 767.98px) and (max-width: 1199767.98px) {
-    @content;
-  }
+  @media (min-width: 767.98px) and (max-width: 1199.98px) { @content; }
 }
 
 @mixin for-desktop-only {
-  @media (min-width: 1200px) {
-    @content;
-  }
+  @media (min-width: 1200px) { @content; }
 }
 
 @function calculateRem($size) {
@@ -49,7 +42,17 @@ $img-width: 45%;
   font-size: calculateRem($size);
 }
 
-@import "header", "footer", "about", "article";
+@import 'header', 'footer', 'about', 'article', 'collection';
+
+$directions: top, bottom, left, right;
+$layout-margin-size: 10px;
+
+@each $direction in $directions {
+  %no-margin-#{$direction} {margin-#{$direction}: 0;};
+  %default-margin-#{$direction} {margin-#{$direction}: $layout-margin-size;};
+  %double-margin-#{$direction} {margin-#{$direction}: $layout-margin-size * 2;};
+  %half-margin-#{$direction} {margin-#{$direction}: $layout-margin-size / 2;}
+}
 
 .main {
   @include flx(justify-content, center);
@@ -87,12 +90,11 @@ $img-width: 45%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 10px;
-    margin-bottom: 20px;
+    @extend %default-margin-top, %double-margin-bottom;
   }
 
   &__date {
-    margin: 0 10px;
+    @extend %no-margin-top, %no-margin-bottom, %default-margin-left, %default-margin-right; 
     @include fontSize(12px);
     font-style: italic;
   }
@@ -221,7 +223,7 @@ $img-width: 45%;
       @extend %no-decoration;
 
       &:hover {
-        @extend %un-decoration;
+        @extend %u-decoration;
       }
     }
 
@@ -231,3 +233,5 @@ $img-width: 45%;
     }
   }
 }
+
+

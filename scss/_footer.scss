@@ -8,11 +8,11 @@
   transform: translateX(-50%);
 
   &__logo {
-    max-width: 100px;
+      max-width: 100px;
   }
 
   &__txt {
-    margin: auto;
-    @include fontSize(14px);
+      margin: auto;
+      @include fontSize(14px);
   }
 }
