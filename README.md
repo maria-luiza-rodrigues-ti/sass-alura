@@ -31,16 +31,16 @@ Além disso, sugiro utilizar o editor [VSCode](https://code.visualstudio.com/) p
 ```bash
 
 # Clone este repositório
-$ git clone https://github.com/maria-luiza-rodrigues-ti/less-alura
+$ git clone https://github.com/maria-luiza-rodrigues-ti/sass-alura
 
 # Vá para a pasta da aplicação Front-End
-$ cd less-alura
+$ cd sass-alura
 
 # Abra o código no VS Code
 $ code .
 
-# Compile os arquivos em LESS utilizando o comando:
-$ sass *nome-do-arquivo.scss/nome-do-arquivo.sass*:*nome-do-arquivo.css*
+# Compile os arquivos em SASS utilizando o comando:
+$ sass *nome-do-arquivo.scss/nome-do-arquivo.sass* *nome-do-arquivo.css*
 
 # Clique no botão Go Live na barra inferior do VS Code, no canto direito
 
